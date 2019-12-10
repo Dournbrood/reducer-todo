@@ -10,23 +10,6 @@ const TodoForm = (props) => {
         setNewTaskText(e.target.value);
     };
 
-    const clearCompleted = () => {
-        let removedTasks = taskState;
-        console.log(removedTasks);
-
-        for (let index = removedTasks.length - 1; index >= 0; index--) {
-            const element = removedTasks[index];
-
-            if (element.completed === true) {
-                removedTasks.splice(index, 1);
-            }
-        }
-        // this.setState({
-        //   tasks: removedTasks,
-        // })
-        dispatch({ type: "CLEAR_COMPLETED", payload: removedTasks })
-    }
-
     const addTask = (e) => {
         e.preventDefault();
         if (newTaskText !== "" && newTaskText !== undefined) {
@@ -45,7 +28,7 @@ const TodoForm = (props) => {
                     onChange={handleChanges}
                 />
                 <button type="submit">Add Todo</button>
-                <button type="button" onClick={clearCompleted}>Clear Completed</button>
+                <button type="button" onClick={() => dispatch({ type: "CLEAR_COMPLETED" })}>Clear Completed</button>
             </form>
         </>
     );

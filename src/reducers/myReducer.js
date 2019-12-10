@@ -26,20 +26,21 @@ export const reducer = (state, action) => {
                 newItem
             ])
         case "CLEAR_COMPLETED":
-            return (
-                action.payload
-            );
+            return state.filter(todo => !todo.completed);
 
         case "TOGGLE_COMPLETED":
-            let completedTasks = state;
-            console.log("TOGGLE COMPLETED INVOKED WITH STATE ", state);
-            completedTasks.forEach((element, index) => {
-                if (element.id === action.payload) {
-                    element.completed = !element.completed
+            return state.map((todo, index) => {
+                if (todo.id === action.payload) {
+                    return {
+                        ...todo,
+                        completed: !todo.completed
+                    }
                 }
+                return (todo);
             });
-            console.log("COMPLETED TASK LIST IS: ", completedTasks);
-            return (completedTasks);
+
+        // console.log("TOGGLE COMPLETED INVOKED WITH STATE ", state);
+        // console.log("COMPLETED TASK LIST IS: ", completedTasks);
         default:
             return state;
     }
